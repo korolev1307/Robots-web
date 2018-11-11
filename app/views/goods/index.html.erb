@@ -1,0 +1,48 @@
+<% if @Goods.count == 0 %>
+  <h1>В данной категории нет товаров</h1>
+<% else %>
+<div class="container py-4">
+    <% @Goods.each_with_index do |good, iterator| %>
+    <% delimeter = iterator.clone %>
+    <% if delimeter % 3 == 0 %>
+        <div class="card-deck justify-content-center">
+    <% end %>
+    <a href="/goods/<%= good.id%>" class="without-decoration">
+      <div class="card col-xl-4 col-md-12 col-lg-4 col-12 col-sm-12 nopadding">
+        <%= image_tag good.photo.url(:index), class: "card-img-top img-fluid"%>
+        <div class="card-body">
+          <h5 class="card-title textcolor-dark" align="center"><%= good.name %></h5>
+          <hr>
+          <p class="card-text textcolor-dark"><%= good.short_description %></p>
+        </div>
+        <div class="card-footer card-text h4">
+          <%= good.price %> руб. 
+            <% if user_signed_in? %>
+              <% if current_user.admin? %>
+                <%= link_to "Удалить", good_path(good), method: :delete, data: {confirm: "Вы уверены?"}, class:"btn btn-primary btn-sm", style: "float: right;" %>
+              <% end %>
+            <% end %>
+            <% if user_signed_in? %>
+              <% unless current_user.admin? %>
+                <%= link_to "В корзину", '#', class: "btn btn-primary btn-sm", style:"float: right;"%>
+              <%end%>
+              <% else %>
+                <%= link_to "В корзину", '#', class: "btn btn-primary btn-sm", style:"float: right;" %>
+            <%end%>
+        </div>
+      </div>
+      </a>
+      <% delimeter = iterator.clone %>
+      <% if delimeter % 3 == 2 %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
+
+
+

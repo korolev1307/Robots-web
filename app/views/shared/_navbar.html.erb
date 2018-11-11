@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-xl navbar-light bg-light", style="background-color: #e3f2fd;">
+  <%= link_to root_path do %>
+    <%= image_tag("logo.png", :alt => 'Главная', :height => '83px', :class => 'navbar-brand mb-0 h1') %>
+  <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHide" aria-controls="navbarHide" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarHide" >
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to "Пункт меню", '#', :class => "nav-link"%>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to "Пункт меню", '#', :class => "nav-link"%>
+      </li>
+        
+      <li class="nav-item">
+        <%= link_to "Пункт меню", '#', :class => "nav-link"%>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to "Пункт меню", '#', :class => "nav-link"%>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav navbar-right">
+    <% if user_signed_in? %>
+      <li class="nav-item navbar-text text-success">
+        <%= link_to "Привет, " + current_user.email, users_path, :class => "nav-link" %>
+      </li>
+  
+      <li class="nav-item">
+        <%= link_to "Выход", destroy_user_session_path, method: :delete, :class => 'nav-link' %>
+      </li>
+
+      <% else  %>
+
+      <li class="nav-item">
+        <%= link_to "Регистрация", new_user_registration_path, :class => 'nav-link' %>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to "Вход", new_user_session_path, :class => 'nav-link' %>
+      </li>
+
+    <% end %>
+      
+    </ul>
+  </div>
+</nav>
+
+
+
+
+
+
+
