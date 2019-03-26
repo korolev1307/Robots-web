@@ -22,20 +22,34 @@
       <li class="nav-item">
         <%= link_to "Пункт меню", '#', :class => "nav-link"%>
       </li>
+      
+      <% if user_signed_in? %>
+      <% if current_user.admin? %>
+        <li class="nav-item">
+          <%= link_to "Админка", admin_index_path, :class => "nav-link"%>
+        </li>
+      <% end %>
+      <% end %>
     </ul>
-
+    
+   
     <ul class="navbar-nav navbar-right">
-    <% if user_signed_in? %>
-      <li class="nav-item navbar-text text-success">
-        <%= link_to "Привет, " + current_user.email, users_path, :class => "nav-link" %>
+      <li class="nav-item">
+        <%= link_to cart_path, :class => 'nav-link' do %>
+          <i class="fas fa-shopping-cart"></i> Всего в корзине: <%= OrderGood.where(:order_id => current_order).count.to_s %>
+        <% end %>
+      </li>
+      <% unless current_user.guest? %>
+      <li class="nav-item">
+        <%= link_to "Привет, " + current_user.name, users_path, :class => "nav-link" %>
       </li>
   
       <li class="nav-item">
         <%= link_to "Выход", destroy_user_session_path, method: :delete, :class => 'nav-link' %>
       </li>
-
-      <% else  %>
-
+    </ul>
+      <% else %>
+    <ul class="navbar-nav navbar-right">
       <li class="nav-item">
         <%= link_to "Регистрация", new_user_registration_path, :class => 'nav-link' %>
       </li>
@@ -43,10 +57,10 @@
       <li class="nav-item">
         <%= link_to "Вход", new_user_session_path, :class => 'nav-link' %>
       </li>
-
+    </ul>
     <% end %>
       
-    </ul>
+    
   </div>
 </nav>
 

@@ -1,0 +1,11 @@
+<h1>Новая категория</h1>
+<%= form_for @category do |f|  %>
+  <div class="field">
+    <%= f.label :Название %><br />
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <br />
+    <%= f.submit "Добавить", class:"btn btn-primary" %>
+  </div>
+<% end %>

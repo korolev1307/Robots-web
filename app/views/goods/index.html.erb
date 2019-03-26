@@ -7,31 +7,46 @@
     <% if delimeter % 3 == 0 %>
         <div class="card-deck justify-content-center">
     <% end %>
-    <a href="/goods/<%= good.id%>" class="without-decoration">
-      <div class="card col-xl-4 col-md-12 col-lg-4 col-12 col-sm-12 nopadding">
+    
+      <div class="card col-xl-4 col-md-12 col-lg-4 col-12 col-sm-12 nopadding" style="padding-bottom:50px;">
+        <a href="/goods/<%= good.id%>" class="without-decoration">
         <%= image_tag good.photo.url(:index), class: "card-img-top img-fluid"%>
         <div class="card-body">
           <h5 class="card-title textcolor-dark" align="center"><%= good.name %></h5>
           <hr>
           <p class="card-text textcolor-dark"><%= good.short_description %></p>
         </div>
+        </a>
         <div class="card-footer card-text h4">
-          <%= good.price %> руб. 
+          <div class="row">
+          <div class="col"><%= good.price %> руб.</div>
             <% if user_signed_in? %>
               <% if current_user.admin? %>
-                <%= link_to "Удалить", good_path(good), method: :delete, data: {confirm: "Вы уверены?"}, class:"btn btn-primary btn-sm", style: "float: right;" %>
+                <div class="btn-group" style="float: right;">
+                  <%= link_to "Изменить", edit_good_path(good), class:"btn btn-primary btn-sm" %>
+                  <%= link_to "Удалить", good_path(good), method: :delete, data: {confirm: "Вы уверены?"}, class:"btn btn-primary btn-sm" %>
+                </div>
               <% end %>
             <% end %>
             <% if user_signed_in? %>
               <% unless current_user.admin? %>
-                <%= link_to "В корзину", '#', class: "btn btn-primary btn-sm", style:"float: right;"%>
+                <%= form_for @order_good do |f| %>
+                  <%= f.hidden_field :good_id, value: good.id %>
+                  <%= f.hidden_field :quantity, value: "1" %>
+                  <%= f.submit "В корзину", class: "btn btn-primary btn-sm", style:"float: right;" %>
+                <% end %>
               <%end%>
               <% else %>
-                <%= link_to "В корзину", '#', class: "btn btn-primary btn-sm", style:"float: right;" %>
+                <%= form_for @order_good do |f| %>
+                  <%= f.hidden_field :good_id, value: @good.id %>
+                  <%= f.hidden_field :quantity, value: "1" %>
+                  <%= f.submit "В корзину", class: "btn btn-primary btn-sm", style:"float: right;" %>
+                <% end %>
             <%end%>
+          </div>
         </div>
       </div>
-      </a>
+      
       <% delimeter = iterator.clone %>
       <% if delimeter % 3 == 2 %>
         </div>
@@ -39,10 +54,3 @@
     <% end %>
   </div>
 <% end %>
-
-
-
-
-
-
-

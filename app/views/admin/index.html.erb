@@ -1,0 +1,40 @@
+<% if current_user.admin? %>
+  <h1>Список заказов всех пользователей:</h1>
+  <hr>
+  <h3><%= current_user.name %> <%= current_user.surname %></h3>
+  <h3>Электронная почта: <%= current_user.email %></h3>
+  <hr>
+  <h3>Всего заказов: <%= Order.all.count %></h3>
+  <hr>
+  <% if @orders != [] %>
+    <h1>Все заказы:</h1>
+    <table class="table table-hover text-center table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Кто заказал</th>
+          <th scope="col">Список товаров и их количество</th>
+          <th scope="col">Статус заказа</th>
+          <th scope="col">Конечная цена</th>
+          <th scope="col">Дата заказа</th>
+        </tr>
+      </thead>
+      <% @orders.each_with_index do |order, index| %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= User.find(order.user_id).name %> <%= User.find(order.user_id).surname %> <br> id пользователя: <%= User.find(order.user_id).id %> </td>
+          <td>
+            <% OrderGood.where(:order_id => order.id).each do |good| %>
+              <p><%= Good.find(good.good_id).name %> (<%= good.quantity%>)</p>
+            <% end %>
+          </td>
+          <td><%= order.status %></td>
+          <td><%= order.total_price %></td>
+          <td><%= order.updated_at.strftime("%d-%m-%Y в %H:%M") %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% else %>
+ПОШЕЛ НАХУЙ ХИТРЫЙ УЕБОК
+<% end %>

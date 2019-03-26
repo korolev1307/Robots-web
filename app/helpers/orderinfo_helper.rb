@@ -1,0 +1,2 @@
+module OrderinfoHelper
+end

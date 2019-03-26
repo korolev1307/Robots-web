@@ -1,0 +1,66 @@
+<%=form_for @good, :html => {:multipart => true}   do |f|  %>
+ 
+  <div class="field">
+    <%= f.label :Добавить_изображение %><br />
+    <%= f.file_field :photo, class: "form-control custom-file"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :Выберите_категорию_товара %><br />
+    <%= select_tag(:good_categories_id, options_for_select(@category_good), :prompt => "Выберите категорию товара") %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Название_товара %><br />
+    <%= f.text_field :name, class: "form-control", :required => true  %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Количество %><br />
+    <%= f.number_field :quantity, class: "form-control", :min => "1", :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Цена_за_штуку %><br />
+    <%= f.number_field :price, class: "form-control", :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Артикул %><br />
+    <%= f.text_field :articul, class: "form-control", :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Вес %><br />
+    <%= f.number_field :weight, class: "form-control", :required => true, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Ширина %><br />
+    <%= f.number_field :width, class: "form-control", :required => true, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Длина %><br />
+    <%= f.number_field :length, class: "form-control", :required => true, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Высота %><br />
+    <%= f.number_field :height, class: "form-control", :required => true, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Короткое_описание %><br />
+    <%= f.text_area :short_description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Полное_описание %><br />
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <br />
+    <%= f.submit "Добавить", class:"btn btn-primary" %>
+  </div>
+<% end %>

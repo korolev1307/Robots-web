@@ -3,11 +3,11 @@ class UsersController < ApplicationController
  
   def show
     
-
   end
 
   def index
-
+    @orders = Order.where(:user_id => current_user.id).all
+    @users = User.all
   end
 
   private

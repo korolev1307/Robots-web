@@ -1,2 +1,51 @@
-<h1>Goods#edit</h1>
-<p>Find me in app/views/goods/edit.html.erb</p>
+<h1>Редактирование товара</h1>
+<%=form_for @good, :html => {:multipart => true}   do |f|  %>
+  <div class="col-xl-4 col-md-12 col-lg-4 col-12 col-sm-12 nopadding mx-auto">
+    <%= image_tag @good.photo.url(:original), class: "card-img-top img-fluid"%>
+  </div>
+  <div class="field">
+    <%= f.label :Выберите_категорию_товара %><br />
+    <%= select_tag(:good_categories_id, options_for_select(@category_good), :value => GoodCategory.find(@good.good_categories_id).name) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Название_товара %><br />
+    <%= f.text_field :name, class: "form-control", :required => true  %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Количество %><br />
+    <%= f.number_field :quantity, class: "form-control", :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Цена_за_штуку %><br />
+    <%= f.number_field :price, class: "form-control", :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Артикул %><br />
+    <%= f.text_field :articul, class: "form-control", :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Вес_в_кг %><br />
+    <%= f.number_field :weight, class: "form-control", :required => true, step: :any %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Короткое_описание %><br />
+    <%= f.text_area :short_description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Полное_описание %><br />
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <br />
+    <%= f.submit "Добавить", class:"btn btn-primary" %>
+  </div>
+<% end %>
+
+  

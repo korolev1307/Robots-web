@@ -10,33 +10,38 @@
 	  <a href="#" class="without-decoration">Перейти к полному описанию</a>
 	</div>
 	</div>
+    <div align="left" class="h5">
+	  Вес:&nbsp <%=@good.weight %> кг.
+	</div>
 	<div align="left" class="h5">
 	  Артикул:&nbsp <%=@good.articul %>
 	</div>
-	<div class="row">
-		<% if @good.quantity > 0 %>
-		<div class="col-5 h1 text-warning">
-		  <%=@good.price %> руб.
-		</div>
-		<div class="col-6">
-		  <a href="#" class="btn btn-info btn-lg">
-        Добавить в корзину
-      </a>
-		</div>
-  </div>
+		  <%= form_for @order_good do |f| %>
+            <%= f.hidden_field :good_id, value: @good.id %>
+            <div class="row">
+              <div class="col-4">
+                <%= f.number_field :quantity, class: "form-control", max: @good.quantity, min: "1", value: "1" %>
+              </div>
+              <div class="col-7">
+                <%= f.submit "Добавить в корзину", class: "btn btn-info btn-xl" %>
+              </div>
+            </div>
+          <% end %>
   <div class="row align-items-center">
-  	<div class="col-3 h3">
-	    Кол-во:
+  	<div class="col-2 h3">
+  	  Цена:
+	</div>
+	<% if @good.quantity > 0 %>
+	  <div class="col-6 h3 text-warning">
+	    <%= @good.price %> руб.
 	  </div>
-	  <div class="col-3">  
-	    <input class="form-control-lg" type="number" min="1" max="<%= @good.quantity %>" step="1" value="1" />
-	  </div>
-	  <div class="col-6 h3">
+  </div>
+	  <div class="col-2 h3">
       <span class="badge badge-info">Есть в наличии&nbsp
-		    <span class="badge badge-light"><%= @good.quantity %></span>
+	  <span class="badge badge-light"><%= @good.quantity %></span>
 		  </span>
 	  </div> 
-	  </div>
+	
 		<% else %>
 		  <span class="badge badge-danger">Нет в наличии <span class="badge badge-light">@good.quantity</span></span>
 		<% end %>

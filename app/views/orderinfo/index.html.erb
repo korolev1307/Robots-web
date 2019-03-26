@@ -1,0 +1,34 @@
+<%= form_for @orderinfo, :url => {:controller => 'orderinfo', :action => 'create'} do |f|  %>
+ 
+  <div class="form-group field">
+    <%= f.label :Номер_телефона %><br />
+    <%= f.text_field :telephone, class: "form-control", :required => true %>
+    <small class="form-text text-muted">Укажите номер телефона для звонка по согласованию заказа. Например: +7 (965) 123-45-67 или 89651234567 или 965-1234-567</small>
+  </div>
+  <div class="field form-group">
+    <%= f.label :email %><br />
+    <%= f.text_field :email, class: "form-control", :required => true  %>
+    <small class="form-text text-muted">Для уведомлений о состоянии заказа и как альтернативный способ связи.</small>
+  </div>
+
+    <div class="field form-group">
+    <%= f.label :ФИО %><br />
+    <%= f.text_field :FIO, class: "form-control", :required => true  %>
+    <small class="form-text text-muted">Для уведомлений о состоянии заказа и как альтернативный способ связи.</small>
+  </div>
+   <% if current_order.payment_type == 1 %>
+    <div class="field form-group">
+    <%= f.label :Домашний_адрес %><br />
+    <%= f.text_field :address, class: "form-control", :required => true  %>
+    <small class="form-text text-muted">Для уведомлений о состоянии заказа и как альтернативный способ связи.</small>
+  </div>
+  <% end %>
+  <div class="field form-group">
+    <%= f.label :Комментарий_к_заказу %><br />
+    <%= f.text_area :comment, class: "form-control", :rows => 7, style: 'width:100%;' %>
+    <small class="form-text text-muted">Напишите сюда все, что хотите.</small>
+    </div>
+  <div class="actions">
+    <%= f.submit "Добавить", class:"btn btn-primary" %>
+  </div>
+<% end %>

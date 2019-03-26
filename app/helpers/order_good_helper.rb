@@ -1,0 +1,2 @@
+module OrderGoodHelper
+end

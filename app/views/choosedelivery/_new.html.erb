@@ -1,0 +1,62 @@
+<h1>Выберите способ доставки:</h1>
+<!--   <%= link_to choosedelivery_index_path(:delivery_type => 0), :class => "without-decoration" do %>
+  <div class="py-3">
+    <div class="card col-xl-12 col-md-12 bg-light border-primary">
+      <div class="row">
+        <div class="col-xl-3 col-md-4 col-sm-6" style="margin-left: auto;
+	margin-right: auto; display: block; justify-content: flex-start; align-self: center;">
+            <img src="assets/self-delivery.png" class="img-fluid">
+        </div>
+          <div class="col-md-8 col-xl-9 col-sm-6 px-3 card-body align-items-left px-3" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card-title h4 text-primary">Самовывоз</div>
+              <div class="card-text h6"></div>
+              <div class="card-text h5 text-success"><span class="text-dark"></span></div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <% end %> -->
+<%= form_for @order, :html => {:multipart => true, :id => 'form_id2'}, :url => {:controller => 'choosedelivery', :action => 'update', id: @order}, method: 'put' do |f|  %>
+  <%= f.hidden_field :delivery_type, :value => "1" %>
+  <%= f.hidden_field :total_price, :id => "stock-price-hidden", :value => nil  %>
+  <%= f.hidden_field :delivery_date, :id => "delivery-date-hidden", :value => nil  %>
+  <%= f.hidden_field :tariffId, value: 10 %>
+  <%= link_to '', :onclick => "$('#form_id2').submit()", :class => "without-decoration" do %>
+  <div class="py-3">
+    <div class="card col-xl-12 col-md-12 bg-light border-primary">
+      <div class="row">
+        <div class="col-xl-3 col-md-4 col-sm-6" style="margin-left: auto;
+	margin-right: auto; display: block; justify-content: flex-start; align-self: center;">
+            <img src="assets/SDEK.png" class="img-fluid">
+        </div>
+          <div class="col-md-8 col-xl-9 col-sm-6 px-3 card-body align-items-left px-3" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card-title h4 text-primary">Доставка до склада СДЭК</div>
+              <div class="card-text h6">Доставка службой доставки СДЭК до склада в вашем городе.
+              </div>
+              <div class="card-text h5 text-success">Стоимость: <span class="text-dark" id="stock-price"></span></div>
+              <div class="card-text h5 text-success">Срок доставки: <span id="delivery-date" class="text-dark"></span></div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+
+<!--   <%= link_to choosedelivery_index_path(:delivery_type => 2), :class => "without-decoration" do %>
+  <div class="py-3">
+    <div class="card col-xl-12 col-md-12 bg-light border-primary">
+      <div class="row">
+        <div class="col-xl-3 col-md-4 col-sm-6" style="margin-left: auto;
+	margin-right: auto; display: block; justify-content: flex-start; align-self: center;">
+            <img src="assets/SDEK.png" class="img-fluid">
+        </div>
+          <div class="col-md-8 col-xl-9 col-sm-6 px-3 card-body align-items-left px-3" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card-title h4 text-primary">Курьерская служба СДЭК</div>
+              <div class="card-text h6">Доставка службой доставки СДЭК до двери</div>
+              <div class="card-text h5 text-success">Стоимость: <span class="text-dark"></span></div>
+              <div class="card-text h5 text-success">Срок доставки: <span class="text-dark"></span></div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <% end %> -->

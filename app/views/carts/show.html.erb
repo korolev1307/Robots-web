@@ -1,0 +1,62 @@
+<% if @order_goods.any? %>
+  <table id="cart" class="table table-hover table-responsive table-sm">
+    <thead>
+	  <tr>
+		<th style="width:52%">Наименование</th>
+		<th style="width:10%">Цена</th>
+		<th style="width:8%">Количество</th>
+		<th style="width:22%" class="text-center">Итого</th>
+		<th style="width:8%" class="text-center">Действия</th>
+	  </tr>
+	</thead>
+	  <tbody>
+	  	<% @order_goods.each do |item| %>
+	  	<a href="/goods/<%= Good.find(item.good_id).id %>" class="without-decoration">
+	    <tr>
+			<a href="/goods/<%= Good.find(item.good_id).id %>" class="without-decoration">
+		  <td data-th="Продукт">
+		  	<div class="row">
+		  	  <div class="col-sm-3 hidden-xs">
+			  	<%= image_tag Good.find(item.good_id).photo.url(:show), class: "img-responsive", width: "100px", height: "100px" %> 
+			  </div>
+			  <div class="col-sm-9">
+			    <h4 class="nopadding"><%= Good.find(item.good_id).name %></h4>
+			    <p><%= Good.find(item.good_id).short_description %></p>
+		      </div>
+			</div>
+		  </td>
+		  <td data-th="Price"><%= Good.find(item.good_id).price %> руб.</td>
+		  <td data-th="Quantity">
+		  	<%= form_for 'item', :html => {:id=>'form_id'}, :url => {:controller => 'order_goods', :action => 'update', id: item}, method: 'put' do |f| %>
+		  	  <%= f.number_field :quantity, class: "form-control", max: Good.find(item.good_id).quantity, min: "1", value: item.quantity %>
+		  	  <%= f.hidden_field :good_id, value: item.good_id %>
+<!-- 			<input type="number" class="form-control text-center" value="<%= item.quantity %>" max="<%= Good.find(item.good_id).quantity %>" min="0"> -->
+		  </td>
+		  <td data-th="Subtotal" class="text-center"><%= (Good.find(item.good_id).price * item.quantity) %> руб.</td>
+		  <td class="actions text-center" data-th="">
+		  	<%= link_to '', "", :onclick => "$('#form_id').submit()", class: "btn-lg fas fa-sync-alt"%>
+			<% end %>
+			<%= link_to "", order_good_path(item), :data => {:confirm => "Вы уверены?", :method => "delete"}, class: "btn-lg far fa-trash-alt" %>
+		  </td>
+
+		</tr>
+		</a>
+		<% end %>
+	  </tbody>
+	  <tfoot>
+	    <tr>
+		  <td><a href="/goods" class="btn btn-warning"><i class="fa fa-angle-left"></i> Вернуться в магазин</a></td>
+		  <td colspan="2" class="hidden-xs"></td>
+		  <td class="hidden-xs text-center"><strong>Всего: <%= current_order.total_price %></strong></td>
+		  <td>
+			<%= link_to deliverycity_index_path, :class => "btn btn-success btn-block" do %>
+		  	<!-- <a href="/deliverycity" class="">Оформить заказ <i class="fa fa-angle-right"></i></a> -->
+		  		Оформить заказ
+		  	<% end %>
+		  	</td>
+		</tr>
+	  </tfoot>
+	</table>
+  <% else %>
+    <p>Ваша корзина пуста</p>
+<% end %>

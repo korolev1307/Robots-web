@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181030093936) do
+ActiveRecord::Schema.define(version: 20190323105953) do
 
   create_table "good_categories", force: :cascade do |t|
     t.string "name"
@@ -32,6 +32,10 @@ ActiveRecord::Schema.define(version: 20181030093936) do
     t.text "short_description"
     t.integer "good_categories_id"
     t.string "articul"
+    t.decimal "weight", default: "0.0"
+    t.decimal "length", default: "0.0"
+    t.decimal "width", default: "0.0"
+    t.decimal "height", default: "0.0"
     t.index ["good_categories_id"], name: "index_goods_on_good_categories_id"
   end
 
@@ -47,22 +51,23 @@ ActiveRecord::Schema.define(version: 20181030093936) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "sum"
-    t.string "adress"
-    t.datetime "date_of_deliveru"
-    t.integer "payment_type_id"
-    t.boolean "paid_status"
-    t.boolean "delivery_status"
+    t.integer "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["payment_type_id"], name: "index_orders_on_payment_type_id"
+    t.string "status"
+    t.text "comment", default: ""
+    t.string "telephone"
+    t.string "email"
+    t.integer "delivery_type"
+    t.string "FIO"
+    t.string "address"
+    t.integer "payment_type"
+    t.integer "senderCityId"
+    t.integer "receiverCityId"
+    t.integer "tariffId"
+    t.integer "modeId"
+    t.string "delivery_date"
     t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
-  create_table "payment_types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,14 +76,13 @@ ActiveRecord::Schema.define(version: 20181030093936) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.boolean "admin", default: false
     t.string "name", default: "", null: false
     t.string "patronymic", default: "", null: false
     t.string "surname", default: "", null: false
     t.string "organisation", default: ""
     t.string "telephone", default: "", null: false
+    t.boolean "guest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

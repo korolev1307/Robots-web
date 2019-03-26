@@ -1,5 +1,6 @@
 class Good < ApplicationRecord
 	belongs_to :good_category, optional: true
+  belongs_to :order_good
 	
 	has_attached_file :photo, :styles => { index: '256x192!', show: '512x384!' }, :default_url => "/images/:style/any.png", 
 	  path: :path_filename_partition,

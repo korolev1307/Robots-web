@@ -2,23 +2,14 @@
 <li class="list-group-item justify-content-center align-items-center color-bg">
   <h4 class="list-group-item-heading textcolor-light text-center">Категории</h4>
 </li>
+ <% @all_categories.each do |category| %>
   <li class="list-group-item list-group-item-action align-items-center text-center" style="white-space: nowrap">
-    <%= link_to '#', :class => "nav-link h5 " do %>
-      Категория
-      <span class="badge badge-primary badge-pill">2</span>
+
+    <%= link_to goods_path(:good_categories_id => category.id), :class => "nav-link h5 " do %>
+      <%= category.name %>
+      <span class="badge badge-primary badge-pill"><%= Good.where(:good_categories_id => category.id).count %></span>
     <% end %>
   </li>
-  <li class="list-group-item list-group-item-action align-items-center text-center" style="white-space: nowrap">
-    <%= link_to '#', :class => "nav-link h5" do %>
-      Категория
-      <span class="badge badge-primary badge-pill">14</span>
-    <% end %>
-  </li>
-  <li class="list-group-item list-group-item-action align-items-center text-center" style="white-space: nowrap">
-    <%= link_to '#', :class => "nav-link h5" do %>
-      Категория
-      <span class="badge badge-primary badge-pill">5</span>
-    <% end %>
-  </li>
+  <% end %> 
 </ul>
 
